@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Checkout</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="logo">GAME<span>HUB</span></a>
+    </nav>
+</header>
+
+<main class="checkout-page">
+    <div class="checkout-header">
+        <p>GAMEHUB</p>
+        <h1>Checkout</h1>
+    </div>
+
+    <div class="checkout-layout">
+        <section class="checkout-form">
+            <div class="checkout-box">
+                <h2>Contact Information</h2>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="checkout-box">
+                <h2>Billing Information</h2>
+
+                <div class="input-row">
+                    <div>
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="John">
+                    </div>
+
+                    <div>
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Doe">
+                    </div>
+                </div>
+
+                <label for="address">Address</label>
+                <input type="text" id="address" placeholder="123 Gaming Street">
+            </div>
+
+            <div class="checkout-box">
+                <h2>Payment Method</h2>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="card" checked>
+                    <span>Credit / Debit Card</span>
+                </label>
+
+                <div class="card-fields">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="gcash">
+                    <span>GCash</span>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="cod">
+                    <span>Cash on Delivery</span>
+                </label>
+            </div>
+
+            <button class="place-order" id="placeOrder">PLACE ORDER</button>
+        </section>
+
+        <aside class="order-summary">
+            <div class="checkout-box">
+                <h2>Your Order</h2>
+                <div id="checkoutItems"></div>
+
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="subtotal">P0.00</span>
+                </div>
+
+                <div class="summary-line">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                </div>
+
+                <div class="summary-line total-line">
+                    <strong>Total</strong>
+                    <strong id="checkoutTotal">P0.00</strong>
+                </div>
+            </div>
+        </aside>
+    </div>
+</main>
+
+<div class="success-modal" id="successModal">
+    <div class="success-content">
+        <div class="success-icon">!</div>
+        <h2>Order Placed!</h2>
+        <p>Thank you for your purchase!</p>
+        <p>Your order has been successfully placed.</p>
+        <button id="backToStore">BACK TO STORE</button>
+    </div>
+</div>
+
+<script src="js/checkout.js"></script>
+</body>
+</html>

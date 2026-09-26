@@ -3,11 +3,12 @@ const subtotal = document.getElementById("subtotal");
 const checkoutTotal = document.getElementById("checkoutTotal");
 const placeOrder = document.getElementById("placeOrder");
 const successModal = document.getElementById("successModal");
+const backToStore = document.getElementById("backToStore");
 
 let cart = JSON.parse(localStorage.getItem("gameCart")) || [];
 
 const formatPrice = price =>
-    `P${price.toLocaleString("en-PH", {
+    `P${Number(price).toLocaleString("en-PH", {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2
     })}`;
@@ -18,7 +19,7 @@ function saveCart() {
 
 function updateTotal() {
     const total = cart.reduce(
-        (sum, game) => sum + game.price * game.quantity,
+        (sum, game) => sum + Number(game.price) * Number(game.quantity),
         0
     );
 
@@ -30,12 +31,16 @@ function renderCheckout() {
     const isEmpty = cart.length === 0;
 
     placeOrder.disabled = isEmpty;
-    placeOrder.style.opacity = isEmpty ? ".5" : "1";
+    placeOrder.style.opacity = isEmpty ? "0.5" : "1";
+    placeOrder.style.cursor = isEmpty ? "not-allowed" : "pointer";
 
     if (isEmpty) {
         checkoutItems.innerHTML = `
             <div class="empty-checkout">
                 <p>Your cart is empty.</p>
+                <button type="button" onclick="window.location.href='index.html'">
+                    Continue Shopping
+                </button>
             </div>
         `;
 
@@ -54,6 +59,7 @@ function renderCheckout() {
 
                 <div class="checkout-quantity">
                     <button
+                        type="button"
                         data-quantity="${game.id}"
                         data-change="-1"
                         aria-label="Decrease quantity"
@@ -64,6 +70,7 @@ function renderCheckout() {
                     <span>${game.quantity}</span>
 
                     <button
+                        type="button"
                         data-quantity="${game.id}"
                         data-change="1"
                         aria-label="Increase quantity"
@@ -73,6 +80,7 @@ function renderCheckout() {
                 </div>
 
                 <button
+                    type="button"
                     class="checkout-remove"
                     data-remove="${game.id}"
                 >
@@ -81,7 +89,7 @@ function renderCheckout() {
             </div>
 
             <span class="summary-game-price">
-                ${formatPrice(game.price * game.quantity)}
+                ${formatPrice(Number(game.price) * Number(game.quantity))}
             </span>
         </div>
     `).join("");
@@ -90,11 +98,11 @@ function renderCheckout() {
 }
 
 function changeQuantity(id, amount) {
-    const game = cart.find(item => item.id === id);
+    const game = cart.find(item => Number(item.id) === Number(id));
 
     if (!game) return;
 
-    game.quantity += amount;
+    game.quantity = Number(game.quantity) + Number(amount);
 
     if (game.quantity <= 0) {
         removeItem(id);
@@ -106,7 +114,7 @@ function changeQuantity(id, amount) {
 }
 
 function removeItem(id) {
-    cart = cart.filter(game => game.id !== id);
+    cart = cart.filter(game => Number(game.id) !== Number(id));
 
     saveCart();
     renderCheckout();
@@ -121,7 +129,6 @@ checkoutItems.addEventListener("click", event => {
             Number(quantityButton.dataset.quantity),
             Number(quantityButton.dataset.change)
         );
-
         return;
     }
 
@@ -140,25 +147,35 @@ placeOrder.addEventListener("click", () => {
         document.getElementById("address")
     ];
 
-    const emptyField = fields.find(
-        field => !field.value.trim()
-    );
+    const emptyField = fields.find(field => !field.value.trim());
 
     if (emptyField) {
         emptyField.reportValidity();
+        emptyField.focus();
         return;
     }
 
-    if (!fields[0].checkValidity()) {
-        fields[0].reportValidity();
+    const email = fields[0];
+
+    if (!email.checkValidity()) {
+        email.reportValidity();
+        email.focus();
         return;
     }
 
     localStorage.removeItem("gameCart");
     cart = [];
 
+    renderCheckout();
+
     successModal.classList.add("show");
     document.body.classList.add("modal-open");
 });
+
+if (backToStore) {
+    backToStore.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+}
 
 renderCheckout();

@@ -981,23 +981,60 @@ footer {
     font-weight: 800;
 }
 
-@media (max-width: 950px) {
-    .game-grid {
-        grid-template-columns: repeat(2, 1fr);
+/* =========================
+   RESPONSIVE FIXES
+   ========================= */
+
+@media (max-width: 1100px) {
+    .navbar,
+    .hero-content,
+    .games-section,
+    .footer-content,
+    .copyright {
+        max-width: 100%;
     }
 
-    .section-heading {
-        align-items: start;
-        flex-direction: column;
+    .navbar {
+        gap: 20px;
     }
 
     .search-box {
-        flex: 1;
-        width: auto;
+        width: 100%;
+        max-width: 430px;
+    }
+
+    .game-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .banner {
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
+    .game-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .filters {
+        width: 100%;
+    }
+
+    .hero {
+        min-height: 580px;
+    }
+
+    .hero-content {
+        padding: 50px 25px;
+    }
+
     .checkout-layout {
         grid-template-columns: 1fr;
     }
@@ -1007,19 +1044,25 @@ footer {
         grid-row: 1;
     }
 
+    .checkout-form {
+        grid-row: 2;
+    }
+
     .modal-content {
+        width: min(850px, 95vw);
         grid-template-columns: 1fr;
-        max-height: 95vh;
+        max-height: 90vh;
         overflow-y: auto;
     }
 
     .modal-content > img {
-        height: 280px;
-        min-height: 280px;
+        width: 100%;
+        height: 300px;
+        min-height: 0;
     }
 
     .modal-info {
-        padding: 25px;
+        padding: 30px;
     }
 
     .footer-content {
@@ -1028,65 +1071,221 @@ footer {
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
     .navbar {
+        min-height: auto;
+        padding: 14px 16px;
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 12px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .cart-btn {
+        margin-left: auto;
+        padding: 9px 12px;
     }
 
     .search-box {
         order: 3;
+        width: 100%;
+        max-width: none;
         flex-basis: 100%;
     }
 
     .hero {
-        min-height: 550px;
+        min-height: 520px;
+        background:
+            linear-gradient(
+                180deg,
+                rgba(8, 8, 13, .82),
+                rgba(8, 8, 13, .95)
+            ),
+            url("../assets/bg.jpg") center/cover;
+    }
+
+    .hero-content {
+        padding: 60px 20px;
     }
 
     .hero h1 {
-        font-size: 52px;
+        max-width: 100%;
+        font-size: clamp(42px, 12vw, 60px);
+        line-height: .95;
         letter-spacing: -2px;
     }
 
+    .hero-content > p:not(.hero-label) {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
     .games-section {
-        padding: 60px 15px;
+        padding: 55px 16px;
+    }
+
+    .section-heading {
+        margin-bottom: 28px;
+    }
+
+    .section-heading h2 {
+        font-size: 32px;
+    }
+
+    .filters {
+        gap: 6px;
+    }
+
+    .filter {
+        padding: 8px 12px;
+        font-size: 13px;
     }
 
     .game-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .game-image {
-        height: 350px;
+        height: clamp(240px, 70vw, 360px);
+    }
+
+    .game-info {
+        padding: 16px;
     }
 
     .banner {
-        margin: 0 15px 60px;
+        min-height: 280px;
+        margin: 0 16px 55px;
         padding: 35px 25px;
     }
 
     .banner h2 {
-        font-size: 32px;
+        font-size: clamp(28px, 8vw, 38px);
+    }
+
+    .cart-sidebar {
+        width: 100%;
+        right: -100%;
+    }
+
+    .cart-header {
+        height: 65px;
+        padding: 0 18px;
+    }
+
+    .cart-items {
+        padding: 15px;
+    }
+
+    .cart-footer {
+        padding: 18px;
+    }
+
+    .toast {
+        right: 15px;
+        left: 15px;
+        bottom: 15px;
+        text-align: center;
+    }
+
+    .modal-content {
+        width: 100%;
+        max-height: 94vh;
+        border-radius: 8px;
+    }
+
+    .modal-content > img {
+        height: 220px;
+    }
+
+    .modal-info {
+        padding: 22px 18px;
+    }
+
+    .modal-info h2 {
+        padding-right: 35px;
+        font-size: 30px;
+    }
+
+    .modal-details {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .modal-bottom {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    #modalCartBtn {
+        width: 100%;
+    }
+
+    footer {
+        padding: 45px 16px 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .hero-label,
+    .section-label,
+    .banner p,
+    .checkout-header p {
+        letter-spacing: 2px;
+    }
+
+    .hero h1 {
+        font-size: 44px;
+    }
+
+    .hero-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .game-image {
+        height: 300px;
+    }
+
+    .banner {
+        padding: 30px 20px;
+    }
+
+    .banner button {
+        width: 100%;
+    }
+
+    .checkout-page {
+        padding: 35px 15px 70px;
+    }
+
+    .checkout-header {
+        margin-bottom: 28px;
     }
 
     .checkout-header-top {
-        align-items: flex-start;
+        align-items: stretch;
         flex-direction: column;
+        gap: 18px;
+    }
+
+    .checkout-header h1 {
+        font-size: 34px;
     }
 
     .back-store-btn {
         width: 100%;
         justify-content: center;
     }
-}
 
-@media (max-width: 550px) {
-    .checkout-page {
-        padding: 40px 15px 70px;
+    .checkout-box {
+        padding: 18px;
     }
 
-    .checkout-header h1 {
-        font-size: 34px;
+    .checkout-box h2 {
+        margin-bottom: 20px;
     }
 
     .input-row {
@@ -1097,4 +1296,93 @@ footer {
     .modal-details {
         grid-template-columns: 1fr;
     }
+
+    .success-content {
+        padding: 35px 20px;
+    }
+
+    .success-content h2 {
+        font-size: 26px;
+    }
 }
+
+@media (max-width: 400px) {
+    .navbar {
+        padding: 12px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .cart-btn {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .hero-content {
+        padding: 45px 16px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .games-section {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .game-image {
+        height: 260px;
+    }
+
+    .game-bottom {
+        gap: 10px;
+    }
+
+    .price {
+        font-size: 17px;
+    }
+
+    .modal-content > img {
+        height: 190px;
+    }
+
+    .modal-info {
+        padding: 20px 15px;
+    }
+
+    .modal-info h2 {
+        font-size: 27px;
+    }
+}
+
+/* Prevent long text from breaking layouts */
+img {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+button,
+a {
+    overflow-wrap: anywhere;
+}
+
+/* Better touch targets */
+@media (pointer: coarse) {
+    .filter,
+    .cart-btn,
+    .hero-btn,
+    .banner button,
+    .add-btn,
+    .quantity button,
+    .checkout-quantity button,
+    .back-store-btn {
+        min-height: 44px;
+    }
+}
+

@@ -105,10 +105,14 @@ header {
 }
 
 .search-box button {
+    flex-shrink: 0;
+    min-width: 110px;
     padding: 0 20px;
     color: white;
     background: var(--purple);
     font-weight: 700;
+    white-space: nowrap;
+    line-height: 1;
 }
 
 .search-box button:hover {
@@ -1098,6 +1102,10 @@ footer {
         width: 100%;
         max-width: none;
         flex-basis: 100%;
+    }
+
+    .search-box button {
+        min-width: 96px;
     }
 
     .hero {

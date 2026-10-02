@@ -78,8 +78,9 @@ header {
 }
 
 .search-box {
-    flex: 1 1 430px;
-    max-width: 430px;
+    flex: 1 1 460px;
+    max-width: 520px;
+    min-width: 260px;
     width: 100%;
     height: 44px;
     display: flex;
@@ -106,7 +107,7 @@ header {
 
 .search-box button {
     flex-shrink: 0;
-    min-width: 110px;
+    min-width: 120px;
     padding: 0 20px;
     color: white;
     background: var(--purple);
